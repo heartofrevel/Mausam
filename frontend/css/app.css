@@ -9,7 +9,7 @@
 
 .login{
     position: absolute;
-    top: calc(15% - 5px);
+    top: calc(10% - 5px);
     left:  400px;
     height: 150px;
     width: 350px;
@@ -21,7 +21,7 @@
     width: 1000px;
     height: 100px;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 3px solid rgba(255,255,255,0.6);
     border-radius: 2px;
     color: #fff;
     font-family: 'Exo', sans-serif;
@@ -69,12 +69,22 @@
     outline: none;
 }
 
-.results    {
+.results {
     position: absolute;
-    top: calc(40% - 5px);
+    top: calc(35% - 5px);
     left: calc(21%);
     height: 400px;
     width: 1000px;
+    padding: 10px;
+    z-index: 2;
+}
+
+.error{
+    position: absolute;
+    top: calc(32% - 5px);
+    left:  740px;
+    height: 150px;
+    width: 350px;
     padding: 10px;
     z-index: 2;
 }

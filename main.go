@@ -30,6 +30,24 @@ type Request struct {
 	Query string
 }
 
+type WeatherDesc struct {
+	Value string
+}
+
+type Current_Condition struct {
+	FeelsLikeC     string
+	FeelsLikeF     string
+	Humidity       string
+	Pressure       string
+	Temp_C         string
+	Temp_F         string
+	WeatherDesc    []WeatherDesc
+	WindDir16Point string
+	WindSpeedKMPH  string
+	Visibility     string
+	CloudCover     string
+}
+
 type Weather struct {
 	Date     string
 	TempMaxC string
@@ -39,8 +57,9 @@ type Weather struct {
 }
 
 type MainData struct {
-	Request []Request
-	Weather []Weather
+	Current_Condition []Current_Condition
+	Request           []Request
+	Weather           []Weather
 }
 
 type WeatherData struct {
@@ -53,12 +72,23 @@ type ResponseError struct {
 
 //Struct to Give Response
 type ResponseData struct {
-	Query    string
-	Date     string
-	TempMaxC string
-	TempMaxF string
-	TempMinC string
-	TempMinF string
+	Query         string
+	Date          string
+	TempMaxC      string
+	TempMaxF      string
+	TempMinC      string
+	TempMinF      string
+	FeelsLikeC    string
+	FeelsLikeF    string
+	Humidity      string
+	Pressure      string
+	TempC         string
+	TempF         string
+	Description   string
+	WindDirection string
+	WindSpeed     string
+	Visibility    string
+	CloudCover    string
 }
 
 func makeRequest(city string, r *http.Request) []byte {
@@ -129,12 +159,23 @@ func makeByteResponse(parsedData WeatherData) []byte {
 	}
 
 	responseData := ResponseData{
-		Query:    parsedData.Data.Request[0].Query,
-		Date:     parsedData.Data.Weather[0].Date,
-		TempMaxC: parsedData.Data.Weather[0].TempMaxC,
-		TempMaxF: parsedData.Data.Weather[0].TempMaxF,
-		TempMinC: parsedData.Data.Weather[0].TempMinC,
-		TempMinF: parsedData.Data.Weather[0].TempMinF,
+		Query:         parsedData.Data.Request[0].Query,
+		Date:          parsedData.Data.Weather[0].Date,
+		TempMaxC:      parsedData.Data.Weather[0].TempMaxC,
+		TempMaxF:      parsedData.Data.Weather[0].TempMaxF,
+		TempMinC:      parsedData.Data.Weather[0].TempMinC,
+		TempMinF:      parsedData.Data.Weather[0].TempMinF,
+		FeelsLikeC:    parsedData.Data.Current_Condition[0].FeelsLikeC,
+		FeelsLikeF:    parsedData.Data.Current_Condition[0].FeelsLikeF,
+		Humidity:      parsedData.Data.Current_Condition[0].Humidity,
+		Pressure:      parsedData.Data.Current_Condition[0].Pressure,
+		TempC:         parsedData.Data.Current_Condition[0].Temp_C,
+		TempF:         parsedData.Data.Current_Condition[0].Temp_F,
+		Description:   parsedData.Data.Current_Condition[0].WeatherDesc[0].Value,
+		WindSpeed:     parsedData.Data.Current_Condition[0].WindSpeedKMPH,
+		WindDirection: parsedData.Data.Current_Condition[0].WindDir16Point,
+		Visibility:    parsedData.Data.Current_Condition[0].Visibility,
+		CloudCover:    parsedData.Data.Current_Condition[0].CloudCover,
 	}
 
 	byteResponse, err := json.Marshal(responseData)

@@ -69,15 +69,21 @@
     <!-- Intro Header -->
     <header class="intro">           
         <div class="login">
+        
             <input type="text" placeholder="Enter City" id="city" >
-            <input type="button" id="submit" value="Submit">          
+            <input type="button" id="submit" value="Submit" onclick="sendRequest()">     
+        
+        </div>
+
+        <div class="error" style="visibility:hidden" id="errorDiv">
+            <p style="font-size:28px" id="errorLabel">City Not Found</p>     
         </div>
       
-        <div id="result" class="results">
+        <div id="result" class="results" style="visibility:hidden">
             <table class="table">
               <tbody>
                 <tr>
-                  <th align="center">New Delhi, Delhi, India</th>
+                  <th align="center" id="City">New Delhi, Delhi, India</th>
                 </tr>
                 <tr>
                   <td>Date:</td>
@@ -85,13 +91,8 @@
                 </tr>
                 <tr>
                   <td>Current Temperature:</td>
-                  <td id="Date">25 &deg;C</td>
+                  <td id="CurrentTemp">25 &deg;C</td>
                 </tr>
-                <tr>
-                  <td>Feels Like:</td>
-                  <td id="Date">25 &deg;C</td>
-                </tr>
-
                 <tr>
                   <td>Minimum Temprature:</td>
                   <td id="TempMin">12 &deg;C</td>
@@ -103,19 +104,27 @@
                 </tr>
                 <tr>
                   <td>Weather Description:</td>
-                  <td id="TempMax">Clear</td>
+                  <td id="Description">Clear</td>
                 </tr>
                 <tr>
                   <td>Wind</td>
-                  <td id="TempMax">0Kmph towards N &deg;C</td>
+                  <td id="Wind">0Kmph towards N &deg;C</td>
                 </tr>
                 <tr>
                   <td>Humidity:</td>
-                  <td id="TempMax">111</td>
+                  <td id="Humidity">111</td>
+                </tr>
+                <tr>
+                  <td>Pressure:</td>
+                  <td id="Pressure">23</td>
                 </tr>
                 <tr>
                   <td>Visibility:</td>
-                  <td id="TempMax">23</td>
+                  <td id="Visibility">23</td>
+                </tr>
+                <tr>
+                  <td>Cloud Cover:</td>
+                  <td id="CloudCover">23</td>
                 </tr>
               </tbody>
             </table>
@@ -185,6 +194,8 @@
 
     <!-- Plugin JavaScript -->
     <script src="js/jquery.easing.min.js"></script>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi?key=API_KEY_GOES_HERE"></script>
 
     <!-- Custom JavaScript -->
     <script src="js/app.js"></script>
