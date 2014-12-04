@@ -1,16 +1,4 @@
-/*!
- * Start Bootstrap - Grayscale Bootstrap Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
 // jQuery to collapse the navbar on scroll
-var location;
-function getLocation(){
-
-
-};
-
 
 $(window).scroll(function() {
     if ($(".navbar").offset().top > 50) {
@@ -80,7 +68,7 @@ function sendRequest(){
             $('#result #Date').html(date);
             $('#result #TempMax').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
             $('#result #TempMin').html(tempMinC+"&deg;C / "+tempMinF+"&deg;F");
-            $('#result #CurrentTemp').html(currentC+"&deg;C / "+currentF+"&deg;F"); 
+            $('#result #CurrentTemp').html(currentC+"&deg;C / "+currentF+"&deg;F &nbsp;&nbsp;feels like&nbsp;&nbsp; "+feelsLikeC+"&deg;C / "+feelsLikeF+"&deg;F"); 
             //$('#result #FeelsLike').html(feelsLikeC+"&deg;C / "+feelsLikeF+"&deg;F");
             $('#result #Humidity').html(humidity+"%");
             $('#result #Pressure').html(pressure+" mb");

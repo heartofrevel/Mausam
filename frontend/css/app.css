@@ -4,7 +4,7 @@
 .login{
     position: absolute;
     top: calc(10% - 5px);
-    left:  400px;
+    left:  calc(50% - 500px) ;
     height: 150px;
     width: 350px;
     padding: 10px;
@@ -65,18 +65,18 @@
 
 .results {
     position: absolute;
-    top: calc(35% - 5px);
-    left: calc(21%);
+    top: calc(40% - 5px);
+    left: calc(50% - 510px);
     height: 400px;
-    width: 1000px;
+    width: 1010px;
     padding: 10px;
     z-index: 2;
 }
 
 .error{
     position: absolute;
-    top: calc(32% - 5px);
-    left:  740px;
+    top: calc(37% - 5px);
+    left:  calc(50% - 160px);
     height: 150px;
     width: 350px;
     padding: 10px;
@@ -470,17 +470,16 @@ table a:hover {
 }
 table {
     width:600px;
-    color:#666;
+    color:#eee;
     font-size:22px;
     font-family: 'Exo', sans-serif;
-    text-shadow: 1px 1px 0px #fff;
-    background:#eaebec;
+    background-color: rgba(0, 0, 0, 0.5);
     margin:20px;
-    border:#ccc 1px solid;
+    
 
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border-radius:10px;
 
     -moz-box-shadow: 0 1px 2px #d1d1d1;
     -webkit-box-shadow: 0 1px 2px #d1d1d1;
@@ -491,13 +490,13 @@ table th {
     border-top:1px solid #fafafa;
     border-bottom:1px solid #e0e0e0;
 
-    background: #ededed;
-    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
-    background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+    background-color: rgba(0, 0, 0, 0.4);
+    
 }
 table th:first-child {
     text-align: left;
     padding-left:20px;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 table tr:first-child th:first-child {
     -moz-border-radius-topleft:3px;
@@ -508,6 +507,7 @@ table tr:first-child th:last-child {
     -moz-border-radius-topright:3px;
     -webkit-border-top-right-radius:3px;
     border-top-right-radius:3px;
+
 }
 table tr {
     text-align: center;
@@ -524,14 +524,12 @@ table td {
     border-bottom:1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
 
-    background: #fafafa;
-    background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
-    background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+    background: transparent;
+    
 }
 table tr.even td {
-    background: #f6f6f6;
-    background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
-    background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+    background: transparent;
+    
 }
 table tr:last-child td {
     border-bottom:0;
@@ -547,7 +545,6 @@ table tr:last-child td:last-child {
     border-bottom-right-radius:3px;
 }
 table tr:hover td {
-    background: #f2f2f2;
-    background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
-    background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);  
+    background: transparent;
+    
 }

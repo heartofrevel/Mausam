@@ -48,12 +48,39 @@ type Current_Condition struct {
 	CloudCover     string
 }
 
+type Hourly struct{
+	TempC   string
+	TempF   string
+	Time	string
+	FeelsLikeF	string
+	FeelsLikeC 	string
+	WeatherDesc	[]WeatherDesc
+}
+
+type HourlyResponse struct{
+	TempC   string
+	TempF   string
+	Time	string
+	FeelsLikeC	string
+	FeelsLikeF 	string
+	WeatherDesc	string
+}
+
+type Astronomy struct{
+	Moonrise	string
+	Moonset		string
+	Sunrise		string
+	Sunset		string
+}
+
 type Weather struct {
+	Astronomy []Astronomy
 	Date     string
-	TempMaxC string
-	TempMaxF string
-	TempMinC string
-	TempMinF string
+	Hourly	[]Hourly
+	MaxTempC string
+	MaxTempF string
+	MinTempC string
+	MinTempF string
 }
 
 type MainData struct {
@@ -89,18 +116,20 @@ type ResponseData struct {
 	WindSpeed     string
 	Visibility    string
 	CloudCover    string
+	HourlyResponse [8]HourlyResponse
+	Astronomy	[1]Astronomy
 }
 
 func makeRequest(city string, r *http.Request) []byte {
 	// API key
-	key := "a2accbe0876ad82a3f082702f678651193deb683"
+	key := "3e66e42fe72931a1840af63fba747"
 
 	reqURL, err := url.Parse("http://api.worldweatheronline.com")
 	if err != nil {
 		log.Print(err)
 	}
 	//Setting Path for URL
-	reqURL.Path = "free/v1/weather.ashx"
+	reqURL.Path = "premium/v1/weather.ashx"
 
 	// Creating Query
 	query := reqURL.Query()
@@ -161,10 +190,10 @@ func makeByteResponse(parsedData WeatherData) []byte {
 	responseData := ResponseData{
 		Query:         parsedData.Data.Request[0].Query,
 		Date:          parsedData.Data.Weather[0].Date,
-		TempMaxC:      parsedData.Data.Weather[0].TempMaxC,
-		TempMaxF:      parsedData.Data.Weather[0].TempMaxF,
-		TempMinC:      parsedData.Data.Weather[0].TempMinC,
-		TempMinF:      parsedData.Data.Weather[0].TempMinF,
+		TempMaxC:      parsedData.Data.Weather[0].MaxTempC,
+		TempMaxF:      parsedData.Data.Weather[0].MaxTempF,
+		TempMinC:      parsedData.Data.Weather[0].MinTempC,
+		TempMinF:      parsedData.Data.Weather[0].MinTempF,
 		FeelsLikeC:    parsedData.Data.Current_Condition[0].FeelsLikeC,
 		FeelsLikeF:    parsedData.Data.Current_Condition[0].FeelsLikeF,
 		Humidity:      parsedData.Data.Current_Condition[0].Humidity,
@@ -176,7 +205,23 @@ func makeByteResponse(parsedData WeatherData) []byte {
 		WindDirection: parsedData.Data.Current_Condition[0].WindDir16Point,
 		Visibility:    parsedData.Data.Current_Condition[0].Visibility,
 		CloudCover:    parsedData.Data.Current_Condition[0].CloudCover,
+		
 	}
+	for i:=0; i<8; i++ {
+            responseData.HourlyResponse[i].TempC = parsedData.Data.Weather[0].Hourly[i].TempC
+            responseData.HourlyResponse[i].TempF = parsedData.Data.Weather[0].Hourly[i].TempF
+            responseData.HourlyResponse[i].Time = parsedData.Data.Weather[0].Hourly[i].Time
+            responseData.HourlyResponse[i].FeelsLikeC = parsedData.Data.Weather[0].Hourly[i].FeelsLikeC
+            responseData.HourlyResponse[i].FeelsLikeF = parsedData.Data.Weather[0].Hourly[i].FeelsLikeF
+            responseData.HourlyResponse[i].WeatherDesc = parsedData.Data.Weather[0].Hourly[i].WeatherDesc[0].Value
+    }
+
+    for i:=0; i<1; i++ {
+        responseData.Astronomy[i].Moonrise =	parsedData.Data.Weather[0].Astronomy[i].Moonrise
+		responseData.Astronomy[i].Moonset =	parsedData.Data.Weather[0].Astronomy[i].Moonset
+		responseData.Astronomy[i].Sunrise =	parsedData.Data.Weather[0].Astronomy[i].Sunrise
+		responseData.Astronomy[i].Sunset =	parsedData.Data.Weather[0].Astronomy[i].Sunset
+    }
 
 	byteResponse, err := json.Marshal(responseData)
 	if err != nil {
