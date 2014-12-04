@@ -99,12 +99,7 @@ type ResponseError struct {
 
 //Struct to Give Response
 type ResponseData struct {
-	Query         string
-	Date          string
-	TempMaxC      string
-	TempMaxF      string
-	TempMinC      string
-	TempMinF      string
+	Weather       []Weather
 	FeelsLikeC    string
 	FeelsLikeF    string
 	Humidity      string
@@ -116,8 +111,6 @@ type ResponseData struct {
 	WindSpeed     string
 	Visibility    string
 	CloudCover    string
-	HourlyResponse [8]HourlyResponse
-	Astronomy	[1]Astronomy
 }
 
 func makeRequest(city string, r *http.Request) []byte {
@@ -188,12 +181,6 @@ func makeByteResponse(parsedData WeatherData) []byte {
 	}
 
 	responseData := ResponseData{
-		Query:         parsedData.Data.Request[0].Query,
-		Date:          parsedData.Data.Weather[0].Date,
-		TempMaxC:      parsedData.Data.Weather[0].MaxTempC,
-		TempMaxF:      parsedData.Data.Weather[0].MaxTempF,
-		TempMinC:      parsedData.Data.Weather[0].MinTempC,
-		TempMinF:      parsedData.Data.Weather[0].MinTempF,
 		FeelsLikeC:    parsedData.Data.Current_Condition[0].FeelsLikeC,
 		FeelsLikeF:    parsedData.Data.Current_Condition[0].FeelsLikeF,
 		Humidity:      parsedData.Data.Current_Condition[0].Humidity,
@@ -207,21 +194,26 @@ func makeByteResponse(parsedData WeatherData) []byte {
 		CloudCover:    parsedData.Data.Current_Condition[0].CloudCover,
 		
 	}
-	for i:=0; i<8; i++ {
+
+	for j:=0; j<5; j++ {
+		responseData.
+
+		for i:=0; i<8; i++ {
             responseData.HourlyResponse[i].TempC = parsedData.Data.Weather[0].Hourly[i].TempC
             responseData.HourlyResponse[i].TempF = parsedData.Data.Weather[0].Hourly[i].TempF
             responseData.HourlyResponse[i].Time = parsedData.Data.Weather[0].Hourly[i].Time
             responseData.HourlyResponse[i].FeelsLikeC = parsedData.Data.Weather[0].Hourly[i].FeelsLikeC
             responseData.HourlyResponse[i].FeelsLikeF = parsedData.Data.Weather[0].Hourly[i].FeelsLikeF
             responseData.HourlyResponse[i].WeatherDesc = parsedData.Data.Weather[0].Hourly[i].WeatherDesc[0].Value
-    }
+	    }
 
-    for i:=0; i<1; i++ {
-        responseData.Astronomy[i].Moonrise =	parsedData.Data.Weather[0].Astronomy[i].Moonrise
-		responseData.Astronomy[i].Moonset =	parsedData.Data.Weather[0].Astronomy[i].Moonset
-		responseData.Astronomy[i].Sunrise =	parsedData.Data.Weather[0].Astronomy[i].Sunrise
-		responseData.Astronomy[i].Sunset =	parsedData.Data.Weather[0].Astronomy[i].Sunset
-    }
+	    for i:=0; i<1; i++ {
+	        responseData.Astronomy[i].Moonrise =	parsedData.Data.Weather[0].Astronomy[i].Moonrise
+			responseData.Astronomy[i].Moonset =	parsedData.Data.Weather[0].Astronomy[i].Moonset
+			responseData.Astronomy[i].Sunrise =	parsedData.Data.Weather[0].Astronomy[i].Sunrise
+			responseData.Astronomy[i].Sunset =	parsedData.Data.Weather[0].Astronomy[i].Sunset
+	    }
+	}
 
 	byteResponse, err := json.Marshal(responseData)
 	if err != nil {
