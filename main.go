@@ -57,15 +57,6 @@ type Hourly struct{
 	WeatherDesc	[]WeatherDesc
 }
 
-type HourlyResponse struct{
-	TempC   string
-	TempF   string
-	Time	string
-	FeelsLikeC	string
-	FeelsLikeF 	string
-	WeatherDesc	string
-}
-
 type Astronomy struct{
 	Moonrise	string
 	Moonset		string
@@ -180,7 +171,7 @@ func makeByteResponse(parsedData WeatherData) []byte {
 		return errorMessage()
 	}
 
-	responseData := ResponseData{
+	/*responseData := ResponseData{
 		FeelsLikeC:    parsedData.Data.Current_Condition[0].FeelsLikeC,
 		FeelsLikeF:    parsedData.Data.Current_Condition[0].FeelsLikeF,
 		Humidity:      parsedData.Data.Current_Condition[0].Humidity,
@@ -196,26 +187,30 @@ func makeByteResponse(parsedData WeatherData) []byte {
 	}
 
 	for j:=0; j<5; j++ {
-		responseData.
+		responseData.Weather[j].MaxTempF = parsedData.Data.Weather[j].MaxTempF
+		responseData.Weather[j].MaxTempC = parsedData.Data.Weather[j].MaxTempC
+		responseData.Weather[j].MinTempF = parsedData.Data.Weather[j].MinTempF
+		responseData.Weather[j].MinTempC = parsedData.Data.Weather[j].MinTempC
+		responseData.Weather[j].Date = parsedData.Data.Weather[j].Date
 
 		for i:=0; i<8; i++ {
-            responseData.HourlyResponse[i].TempC = parsedData.Data.Weather[0].Hourly[i].TempC
-            responseData.HourlyResponse[i].TempF = parsedData.Data.Weather[0].Hourly[i].TempF
-            responseData.HourlyResponse[i].Time = parsedData.Data.Weather[0].Hourly[i].Time
-            responseData.HourlyResponse[i].FeelsLikeC = parsedData.Data.Weather[0].Hourly[i].FeelsLikeC
-            responseData.HourlyResponse[i].FeelsLikeF = parsedData.Data.Weather[0].Hourly[i].FeelsLikeF
-            responseData.HourlyResponse[i].WeatherDesc = parsedData.Data.Weather[0].Hourly[i].WeatherDesc[0].Value
+            responseData.Weather[j].Hourly[i].TempC = parsedData.Data.Weather[j].Hourly[i].TempC
+            responseData.Weather[j].Hourly[i].TempF = parsedData.Data.Weather[j].Hourly[i].TempF
+            responseData.Weather[j].Hourly[i].Time = parsedData.Data.Weather[j].Hourly[i].Time
+            responseData.Weather[j].Hourly[i].FeelsLikeC = parsedData.Data.Weather[j].Hourly[i].FeelsLikeC
+            responseData.Weather[j].Hourly[i].FeelsLikeF = parsedData.Data.Weather[j].Hourly[i].FeelsLikeF
+            responseData.Weather[j].Hourly[i].WeatherDesc[0].Value = parsedData.Data.Weather[j].Hourly[i].WeatherDesc[0].Value
 	    }
 
 	    for i:=0; i<1; i++ {
-	        responseData.Astronomy[i].Moonrise =	parsedData.Data.Weather[0].Astronomy[i].Moonrise
-			responseData.Astronomy[i].Moonset =	parsedData.Data.Weather[0].Astronomy[i].Moonset
-			responseData.Astronomy[i].Sunrise =	parsedData.Data.Weather[0].Astronomy[i].Sunrise
-			responseData.Astronomy[i].Sunset =	parsedData.Data.Weather[0].Astronomy[i].Sunset
+	        responseData.Weather[j].Astronomy[i].Moonrise =	parsedData.Data.Weather[j].Astronomy[i].Moonrise
+			responseData.Weather[j].Astronomy[i].Moonset =	parsedData.Data.Weather[j].Astronomy[i].Moonset
+			responseData.Weather[j].Astronomy[i].Sunrise =	parsedData.Data.Weather[j].Astronomy[i].Sunrise
+			responseData.Weather[j].Astronomy[i].Sunset =	parsedData.Data.Weather[j].Astronomy[i].Sunset
 	    }
 	}
-
-	byteResponse, err := json.Marshal(responseData)
+*/
+	byteResponse, err := json.Marshal(parsedData)
 	if err != nil {
 		log.Print(err)
 		return errorMessage()

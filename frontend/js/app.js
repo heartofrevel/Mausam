@@ -47,12 +47,12 @@ function sendRequest(){
                 resultDiv.style.visibility = "hidden";
             }
             else{           
-            var city = jsonObj.Query
-            var date = jsonObj.Date
-            var tempMaxC = jsonObj.TempMaxC
-            var tempMinC = jsonObj.TempMinC
-            var tempMaxF = jsonObj.TempMaxF
-            var tempMinF = jsonObj.TempMinF
+            var city = jsonObj.Data.Request[0].Query
+            var date = jsonObj.Data.Weather[0].Date
+            var tempMaxC = jsonObj.Data.Weather[0].MaxTempC
+            var tempMinC = jsonObj.Data.Weather[0].MinTempC
+            var tempMaxF = jsonObj.Data.Weather[0].MaxTempF
+            var tempMinF = jsonObj.Data.Weather[0].MinTempF
             var currentC = jsonObj.TempC
             var currentF = jsonObj.TempF
             var feelsLikeC = jsonObj.FeelsLikeC
