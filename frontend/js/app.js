@@ -24,7 +24,7 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
-
+var jsonResponse;
 function sendRequest(){
     var errorLabel = document.getElementById("errorLabel");
     var resultDiv =  document.getElementById("result");
@@ -46,7 +46,8 @@ function sendRequest(){
                 document.getElementById("errorDiv").style.visibility = "visible";
                 resultDiv.style.visibility = "hidden";
             }
-            else{           
+            else{   
+            jsonResponse = jsonObj        
             var city = jsonObj.Query
             var date = jsonObj.Date
             var tempMaxC = jsonObj.TempMaxC
@@ -64,6 +65,10 @@ function sendRequest(){
             var WindSpeed = jsonObj.WindSpeed
             var Visibility = jsonObj.Visibility
             var CloudCover = jsonObj.CloudCover
+            var Sunrise = jsonObj.Sunrise
+            var Sunset = jsonObj.Sunset
+            var Moonrise = jsonObj.Moonrise
+            var Moonset = jsonObj.Moonset
             $('#result #City').html(city)
             $('#result #Date').html(date);
             $('#result #TempMax').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
@@ -76,6 +81,10 @@ function sendRequest(){
             $('#result #Wind').html(WindSpeed+" mph "+WindDirection);
             $('#result #Visibility').html(Visibility+" KM");
             $('#result #CloudCover').html(CloudCover+"%");
+            $('#astronomy #Sunrise').html(Sunrise);
+            $('#astronomy #Sunset').html(Sunset);
+            $('#astronomy #Moonrise').html(Moonrise);
+            $('#astronomy #Moonset').html(Moonset);
             resultDiv.style.visibility = "visible";
           }}
           });
@@ -92,5 +101,4 @@ function init() {
         };
     var input1 = document.getElementById('city');
     var autocomplete = new google.maps.places.Autocomplete(input1,options);
-    
 }

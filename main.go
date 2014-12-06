@@ -148,6 +148,10 @@ type ResponseData struct {
 	WindSpeed     string
 	Visibility    string
 	CloudCover    string
+	Sunrise		  string
+	Sunset		  string
+	Moonrise      string
+	Moonset		  string
 	WeatherResponse	[5]WeatherResponse
 	MonthlyResponse	[12]MonthlyResponse
 }
@@ -237,6 +241,10 @@ func makeByteResponse(parsedData WeatherData) []byte {
 		WindDirection: parsedData.Data.Current_Condition[0].WindDir16Point,
 		Visibility:    parsedData.Data.Current_Condition[0].Visibility,
 		CloudCover:    parsedData.Data.Current_Condition[0].CloudCover,
+		Sunrise:	   parsedData.Data.Weather[0].Astronomy[0].Sunrise,
+		Sunset:		   parsedData.Data.Weather[0].Astronomy[0].Sunset,
+		Moonrise:	   parsedData.Data.Weather[0].Astronomy[0].Moonrise,
+		Moonset:	   parsedData.Data.Weather[0].Astronomy[0].Moonset,
 		
 	}
 

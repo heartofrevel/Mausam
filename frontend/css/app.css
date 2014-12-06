@@ -548,3 +548,28 @@ table tr:hover td {
     background: transparent;
     
 }
+
+.astronomy{
+    position: absolute;
+    top: calc(40% - 5px);
+    left: calc(80% - 70px);
+    height: 400px;
+    width: 400px;
+    padding: 10px;
+    z-index: 2;
+}
+
+.options{
+    position: absolute;
+    top: calc(40% - 5px);
+    left: calc(3.2%);
+    height: 400px;
+    width: 400px;
+    padding: 10px;
+    z-index: 2;
+}
+
+#optTable th:hover{
+    color:#000;
+    background-color:#fff;
+}
