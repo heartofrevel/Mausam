@@ -24,10 +24,11 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
-var jsonResponse;
+var jsonResponse = 1;
+var errorLabel;
+var resultDiv;
+
 function sendRequest(){
-    var errorLabel = document.getElementById("errorLabel");
-    var resultDiv =  document.getElementById("result");
     var city = $("#city").val();
     if(city == ''){
         errorLabel.innerHTML = "Please enter the city.";
@@ -35,20 +36,53 @@ function sendRequest(){
     }
     else{
         document.getElementById("errorDiv").style.visibility = "hidden";
-          $.ajax({
-          type: "POST",
-          url: "/weather?city="+city,          
-          cache: false,
-          success: function(result){
-            var jsonObj = jQuery.parseJSON(result);
-            if(jsonObj.hasOwnProperty('Error')){
-                errorLabel.innerHTML = "City Not Found.";
-                document.getElementById("errorDiv").style.visibility = "visible";
-                resultDiv.style.visibility = "hidden";
+        $.ajax({
+            type: "POST",
+            url: "/weather?city="+city,          
+            cache: false,
+            success: function(result){
+                var jsonObj = jQuery.parseJSON(result);
+                if(jsonObj.hasOwnProperty('Error')){
+                    errorLabel.innerHTML = "City Not Found.";
+                    document.getElementById("errorDiv").style.visibility = "visible";
+                    resultDiv.style.visibility = "hidden";
+                }
+                else{   
+                    jsonResponse = jsonObj
+                    currentCondition(jsonObj);
+                }
             }
-            else{   
-            jsonResponse = jsonObj        
-            var city = jsonObj.Query
+        });
+    } 
+}
+
+function init() {
+   var options = {
+          types: ['(cities)']
+        };
+    var input1 = document.getElementById('city');
+    var autocomplete = new google.maps.places.Autocomplete(input1,options);
+    var table = document.getElementById("optTable");
+    var rows = table.getElementsByTagName("tr");
+    errorLabel = document.getElementById("errorLabel");
+    resultDiv =  document.getElementById("result");
+    table.rows[0].onclick = function(){
+        currentCondition(jsonResponse);
+    }
+    table.rows[1].onclick = function(jsonResponse){
+        fiveDayForecast();
+    }
+    table.rows[2].onclick = function(jsonResponse){
+        hourlyForecast();
+    }
+    table.rows[3].onclick = function(jsonResponse){
+        monthlyAverages();
+    }
+}
+google.maps.event.addDomListener(window, 'load', init);
+
+function currentCondition(jsonObj){
+    var city = jsonObj.Query
             var date = jsonObj.Date
             var tempMaxC = jsonObj.TempMaxC
             var tempMinC = jsonObj.TempMinC
@@ -74,7 +108,6 @@ function sendRequest(){
             $('#result #TempMax').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
             $('#result #TempMin').html(tempMinC+"&deg;C / "+tempMinF+"&deg;F");
             $('#result #CurrentTemp').html(currentC+"&deg;C / "+currentF+"&deg;F &nbsp;&nbsp;feels like&nbsp;&nbsp; "+feelsLikeC+"&deg;C / "+feelsLikeF+"&deg;F"); 
-            //$('#result #FeelsLike').html(feelsLikeC+"&deg;C / "+feelsLikeF+"&deg;F");
             $('#result #Humidity').html(humidity+"%");
             $('#result #Pressure').html(pressure+" mb");
             $('#result #Description').html(description);
@@ -86,19 +119,7 @@ function sendRequest(){
             $('#astronomy #Moonrise').html(Moonrise);
             $('#astronomy #Moonset').html(Moonset);
             resultDiv.style.visibility = "visible";
-          }}
-          });
-        } 
 }
-
-// Google Maps Scripts
-// When the window has finished loading create our google map below
-google.maps.event.addDomListener(window, 'load', init);
-
-function init() {
-   var options = {
-          types: ['(cities)']
-        };
-    var input1 = document.getElementById('city');
-    var autocomplete = new google.maps.places.Autocomplete(input1,options);
-}
+function fiveDayForecast(jsonObj){}
+function hourlyForecast(jsonObj){}
+function monthlyAverages(jsonObj){}
