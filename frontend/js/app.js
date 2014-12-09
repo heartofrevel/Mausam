@@ -136,7 +136,8 @@ function currentCondition(jsonObj){
 function fiveDayForecast(jsonObj){
     $('#dailyForecastResults').empty();
     dailyForecastResults.style.visibility = "visible";
-    astronomy.style.visibility = "visible";
+    resultDiv.style.visibility = "hidden";
+    astronomy.style.visibility = "hidden";
     for(var i=0; i<5; i++){
         var date = jsonObj.WeatherResponse[i].Date;
         var tempMaxC = jsonObj.WeatherResponse[i].TempMaxC;
@@ -147,14 +148,14 @@ function fiveDayForecast(jsonObj){
         $('#dailyForecast #MaxTemp').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
         $('#dailyForecast #MinTemp').html(tempMinC+"&deg;C / "+tempMinF+"&deg;F");
         $('#dailyForecastResults').append($('#dailyForecast').html());
-        resultDiv.style.visibility = "hidden";
-        astronomy.style.visibility = "hidden";
+        
     }
 }
 function hourlyForecast(jsonObj){
     $('#dailyForecastResults').empty();
     dailyForecastResults.style.visibility = "visible";
-    astronomy.style.visibility = "visible";
+    resultDiv.style.visibility = "hidden";
+    astronomy.style.visibility = "hidden";
     for (var i = 0; i < 8; i++) {
         var TempC = jsonObj.WeatherResponse[0].HourlyResponse[i].TempC;
         var TempF = jsonObj.WeatherResponse[0].HourlyResponse[i].TempF;
@@ -168,8 +169,22 @@ function hourlyForecast(jsonObj){
         $('#hourlyForecast #FeelsLike').html(FeelsLikeC+"&deg;C / "+FeelsLikeF+"&deg;F");
         $('#hourlyForecast #Description').html(Description);
         $('#dailyForecastResults').append($('#hourlyForecast').html());
-        resultDiv.style.visibility = "hidden";
-        astronomy.style.visibility = "hidden";
     }
 }
-function monthlyAverages(jsonObj){}
+function monthlyAverages(jsonObj){
+    $('#dailyForecastResults').empty();
+    dailyForecastResults.style.visibility = "visible";
+    resultDiv.style.visibility = "hidden";
+    astronomy.style.visibility = "hidden";
+    for (var i = 0; i <12; i++) {
+        var Month = jsonObj.MonthlyResponse[i].Name;
+        var AbsMaxTempC = jsonObj.MonthlyResponse[i].AbsMaxTempC;
+        var AbsMaxTempF = jsonObj.MonthlyResponse[i].AbsMaxTempF;
+        var AvgMinTempC = jsonObj.MonthlyResponse[i].AvgMinTempC;
+        var AvgMinTempF = jsonObj.MonthlyResponse[i].AvgMinTempF;
+        $('#monthlyForecast #Month').html(Month);
+        $('#monthlyForecast #AbsMax').html(AbsMaxTempC+"&deg;C / "+AbsMaxTempF+"&deg;F");
+        $('#monthlyForecast #AvgMin').html(AvgMinTempC+"&deg;C / "+AvgMinTempF+"&deg;F");
+        $('#dailyForecastResults').append($('#monthlyForecast').html());
+    };
+}

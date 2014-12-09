@@ -11,9 +11,6 @@
 
     <title>Mausam | Weather on Go</title>
 
-    
-
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -172,7 +169,7 @@
             </table>
         </div> 
         <div id="hourlyForecast" class="hourlyForecast" style="display:none">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad"  >
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad">
             <table class="table">    
                 <tr>
                     <th id="Time"></th>
@@ -194,7 +191,7 @@
         </div> 
         </div>
         <div id="dailyForecast" class="dailyForecast" style="display:none">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad"  >
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad">
             <table class="table">
                 <tr>
                     <th id="Date">Date</th>
@@ -212,6 +209,25 @@
         </div>
         </div>
         
+        <div id="monthlyForecast" class="dailyForecast" style="display:none">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad">
+            <table class="table">
+                <tr>
+                    <th id="Month">Month</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Absolute Maximum</td>
+                    <td id="AbsMax">maxtemp</td>
+                </tr>
+                <tr>
+                    <td>Average Minimum</td>
+                    <td id="AvgMin">maxtemp</td>
+                </tr>
+            </table>
+        </div>
+        </div>
+
         <div id="dailyForecastResults" class="dailyForecastResults">
             
         </div>
