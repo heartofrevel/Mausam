@@ -75,7 +75,7 @@
 
 .error{
     position: absolute;
-    top: calc(37% - 5px);
+    top: calc(34% - 5px);
     left:  calc(50% - 160px);
     height: 150px;
     width: 350px;
@@ -575,7 +575,25 @@ table tr:hover td {
 }
 
 .dailyForecast{
-    height: 50px;
-    width: 50px;
+    position: relative;
+    height: 500px;
+    width: 50%;
+    padding: 10px;
+    z-index: 2;
+}
+
+.dailyForecastResults{
+    position: absolute;
+    height: 1500px;
+    width:  1300px;
+    top: calc(41% - 5px);
+    left: calc(52% - 510px);
+}
+
+.hourlyForecast{
+    position: relative;
+    height: 500px;
+    width: 50%;
+    padding: 10px;
     z-index: 2;
 }

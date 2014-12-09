@@ -27,6 +27,9 @@ $('.navbar-collapse ul li a').click(function() {
 var jsonResponse = 1;
 var errorLabel;
 var resultDiv;
+var astronomy;
+var dailyForecastResults;
+var optTable;
 
 function sendRequest(){
     var city = $("#city").val();
@@ -46,6 +49,9 @@ function sendRequest(){
                     errorLabel.innerHTML = "City Not Found.";
                     document.getElementById("errorDiv").style.visibility = "visible";
                     resultDiv.style.visibility = "hidden";
+                    astronomy.style.visibility = "hidden";
+                    optTable.style.visibility = "hidden"
+                    dailyForecastResults.style.visibility = "hidden";
                 }
                 else{   
                     jsonResponse = jsonObj
@@ -66,17 +72,20 @@ function init() {
     var rows = table.getElementsByTagName("tr");
     errorLabel = document.getElementById("errorLabel");
     resultDiv =  document.getElementById("result");
+    astronomy = document.getElementById("astronomy");
+    dailyForecastResults = document.getElementById("dailyForecastResults");
+    optTable = document.getElementById("optTable");
     table.rows[0].onclick = function(){
         currentCondition(jsonResponse);
     }
-    table.rows[1].onclick = function(jsonResponse){
-        fiveDayForecast();
+    table.rows[1].onclick = function(){
+        fiveDayForecast(jsonResponse);
     }
-    table.rows[2].onclick = function(jsonResponse){
-        hourlyForecast();
+    table.rows[2].onclick = function(){
+        hourlyForecast(jsonResponse);
     }
-    table.rows[3].onclick = function(jsonResponse){
-        monthlyAverages();
+    table.rows[3].onclick = function(){
+        monthlyAverages(jsonResponse);
     }
 }
 google.maps.event.addDomListener(window, 'load', init);
@@ -119,7 +128,48 @@ function currentCondition(jsonObj){
             $('#astronomy #Moonrise').html(Moonrise);
             $('#astronomy #Moonset').html(Moonset);
             resultDiv.style.visibility = "visible";
+            astronomy.style.visibility = "visible";
+            optTable.style.visibility = "visible"
+            dailyForecastResults.style.visibility = "hidden";
+
 }
-function fiveDayForecast(jsonObj){}
-function hourlyForecast(jsonObj){}
+function fiveDayForecast(jsonObj){
+    $('#dailyForecastResults').empty();
+    dailyForecastResults.style.visibility = "visible";
+    astronomy.style.visibility = "visible";
+    for(var i=0; i<5; i++){
+        var date = jsonObj.WeatherResponse[i].Date;
+        var tempMaxC = jsonObj.WeatherResponse[i].TempMaxC;
+        var tempMaxF = jsonObj.WeatherResponse[i].TempMaxF;
+        var tempMinC = jsonObj.WeatherResponse[i].TempMinC;
+        var tempMinF = jsonObj.WeatherResponse[i].TempMinF;
+        $('#dailyForecast #Date').html(date);
+        $('#dailyForecast #MaxTemp').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
+        $('#dailyForecast #MinTemp').html(tempMinC+"&deg;C / "+tempMinF+"&deg;F");
+        $('#dailyForecastResults').append($('#dailyForecast').html());
+        resultDiv.style.visibility = "hidden";
+        astronomy.style.visibility = "hidden";
+    }
+}
+function hourlyForecast(jsonObj){
+    $('#dailyForecastResults').empty();
+    dailyForecastResults.style.visibility = "visible";
+    astronomy.style.visibility = "visible";
+    for (var i = 0; i < 8; i++) {
+        var TempC = jsonObj.WeatherResponse[0].HourlyResponse[i].TempC;
+        var TempF = jsonObj.WeatherResponse[0].HourlyResponse[i].TempF;
+        var FeelsLikeC = jsonObj.WeatherResponse[0].HourlyResponse[i].FeelsLikeC;
+        var FeelsLikeF = jsonObj.WeatherResponse[0].HourlyResponse[i].FeelsLikeF;
+        var Time = jsonObj.WeatherResponse[0].HourlyResponse[i].Time;
+        var ModTime = Time.slice(0,-2)+":"+Time.slice(-2);
+        var Description = jsonObj.WeatherResponse[0].HourlyResponse[i].WeatherDesc;
+        $('#hourlyForecast #Time').html(ModTime);
+        $('#hourlyForecast #Temperature').html(TempC+"&deg;C / "+TempF+"&deg;F");
+        $('#hourlyForecast #FeelsLike').html(FeelsLikeC+"&deg;C / "+FeelsLikeF+"&deg;F");
+        $('#hourlyForecast #Description').html(Description);
+        $('#dailyForecastResults').append($('#hourlyForecast').html());
+        resultDiv.style.visibility = "hidden";
+        astronomy.style.visibility = "hidden";
+    }
+}
 function monthlyAverages(jsonObj){}

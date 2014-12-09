@@ -79,7 +79,7 @@
             <p style="font-size:28px" id="errorLabel">City Not Found</p>     
         </div>
 
-        <div class="options">
+        <div class="options" style="visibility:hidden">
             <table class="table" id="optTable">
                 <tr onmouseover="this.style.cursor='pointer'">
                     <th>Current Conditions</th>
@@ -95,7 +95,7 @@
                 </tr>
             </table>
         </div>
-      
+        
         <div id="result" class="results" style="visibility:hidden">
             <table class="table">
               <tbody>
@@ -147,7 +147,7 @@
               </tbody>
             </table>
         </div> 
-        <div id="astronomy" class="astronomy">
+        <div id="astronomy" class="astronomy" style="visibility:hidden">
             <table class="table">    
                 <tr>
                     <th>Astronomy</th>
@@ -171,25 +171,59 @@
                 </tr>
             </table>
         </div> 
+        <div id="hourlyForecast" class="hourlyForecast" style="display:none">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad"  >
+            <table class="table">    
+                <tr>
+                    <th id="Time"></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Temperature</td>
+                    <td id="Temperature"></td>
+                </tr>
+                <tr>
+                    <td>Feels Like</td>
+                    <td id="FeelsLike"></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td id="Description"></td>
+                </tr>
+            </table>
+        </div> 
+        </div>
         <div id="dailyForecast" class="dailyForecast" style="display:none">
-            <table>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 downpad"  >
+            <table class="table">
                 <tr>
-                    <td>Date</td>
+                    <th id="Date">Date</th>
+                    <th></th>
                 </tr>
                 <tr>
-                    <td>Maximum Temperature</td>
-                    <td>maxtemp</td>
+                    <td>Maximum</td>
+                    <td id="MaxTemp">maxtemp</td>
                 </tr>
                 <tr>
-                    <td>Minimum Temperature</td>
-                    <td>maxtemp</td>
+                    <td>Minimum</td>
+                    <td id="MinTemp">maxtemp</td>
                 </tr>
             </table>
         </div>
+        </div>
+        
+        <div id="dailyForecastResults" class="dailyForecastResults">
+            
+        </div>
        
+      
     </header>
 
     <!-- About Section -->
+     <section  class="container content-section text-center">
+     </section>
+     <section  class="container content-section text-center">
+     </section>
     <section id="about" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
