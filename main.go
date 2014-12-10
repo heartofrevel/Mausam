@@ -34,6 +34,10 @@ type WeatherDesc struct {
 	Value string
 }
 
+type WeatherIconUrl struct{
+	Value string
+}
+
 type Month struct{
 	AbsMaxTemp	string
 	AbsMaxTemp_F	string
@@ -58,6 +62,7 @@ type Current_Condition struct {
 	WindSpeedKMPH  string
 	Visibility     string
 	CloudCover     string
+	WeatherIconUrl	[]WeatherIconUrl
 }
 
 type Hourly struct{
@@ -67,6 +72,7 @@ type Hourly struct{
 	FeelsLikeF	string
 	FeelsLikeC 	string
 	WeatherDesc	[]WeatherDesc
+	WeatherIconUrl []WeatherIconUrl
 }
 
 type HourlyResponse struct{
@@ -76,6 +82,7 @@ type HourlyResponse struct{
 	FeelsLikeC	string
 	FeelsLikeF 	string
 	WeatherDesc	string
+	Image	string
 }
 
 type Astronomy struct{
@@ -152,6 +159,7 @@ type ResponseData struct {
 	Sunset		  string
 	Moonrise      string
 	Moonset		  string
+	Image		  string
 	WeatherResponse	[5]WeatherResponse
 	MonthlyResponse	[12]MonthlyResponse
 }
@@ -245,6 +253,7 @@ func makeByteResponse(parsedData WeatherData) []byte {
 		Sunset:		   parsedData.Data.Weather[0].Astronomy[0].Sunset,
 		Moonrise:	   parsedData.Data.Weather[0].Astronomy[0].Moonrise,
 		Moonset:	   parsedData.Data.Weather[0].Astronomy[0].Moonset,
+		Image:		   parsedData.Data.Current_Condition[0].WeatherIconUrl[0].Value,
 		
 	}
 
@@ -256,6 +265,7 @@ func makeByteResponse(parsedData WeatherData) []byte {
             responseData.WeatherResponse[j].HourlyResponse[i].FeelsLikeC = parsedData.Data.Weather[j].Hourly[i].FeelsLikeC
             responseData.WeatherResponse[j].HourlyResponse[i].FeelsLikeF = parsedData.Data.Weather[j].Hourly[i].FeelsLikeF
             responseData.WeatherResponse[j].HourlyResponse[i].WeatherDesc = parsedData.Data.Weather[j].Hourly[i].WeatherDesc[0].Value
+            responseData.WeatherResponse[j].HourlyResponse[i].Image = parsedData.Data.Weather[j].Hourly[i].WeatherIconUrl[0].Value
 	    }	   
         responseData.WeatherResponse[j].Astronomy.Moonrise = parsedData.Data.Weather[j].Astronomy[0].Moonrise
 		responseData.WeatherResponse[j].Astronomy.Moonset =	parsedData.Data.Weather[j].Astronomy[0].Moonset

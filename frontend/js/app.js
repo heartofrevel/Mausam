@@ -112,6 +112,8 @@ function currentCondition(jsonObj){
             var Sunset = jsonObj.Sunset
             var Moonrise = jsonObj.Moonrise
             var Moonset = jsonObj.Moonset
+            var Image = jsonObj.Image
+            document.getElementById("currImg").src = Image
             $('#result #City').html(city)
             $('#result #Date').html(date);
             $('#result #TempMax').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
@@ -181,6 +183,8 @@ function hourlyForecast(jsonObj){
         }
         var ModTime = Time.slice(0,-2)+":"+Time.slice(-2);
         var Description = jsonObj.WeatherResponse[0].HourlyResponse[i].WeatherDesc;
+        var Image = jsonObj.WeatherResponse[0].HourlyResponse[i].Image;
+        document.getElementById('hourlyImg').src = Image;
         $('#hourlyForecast #Time').html(ModTime);
         $('#hourlyForecast #Temperature').html(TempC+"&deg;C / "+TempF+"&deg;F");
         $('#hourlyForecast #FeelsLike').html(FeelsLikeC+"&deg;C / "+FeelsLikeF+"&deg;F");
