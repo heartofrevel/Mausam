@@ -597,3 +597,12 @@ table tr:hover td {
     padding: 10px;
     z-index: 2;
 }
+
+.monthlyForecast{
+    position: relative;
+    height: 500px;
+    width: 50%;
+    padding: 10px;
+    z-index: 2;
+}
+
