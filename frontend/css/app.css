@@ -577,7 +577,7 @@ table tr:hover td {
 .dailyForecast{
     position: relative;
     height: 500px;
-    width: 50%;
+    width: 100%;
     padding: 10px;
     z-index: 2;
 }

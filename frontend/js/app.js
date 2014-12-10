@@ -144,9 +144,17 @@ function fiveDayForecast(jsonObj){
         var tempMaxF = jsonObj.WeatherResponse[i].TempMaxF;
         var tempMinC = jsonObj.WeatherResponse[i].TempMinC;
         var tempMinF = jsonObj.WeatherResponse[i].TempMinF;
+        var Sunrise = jsonObj.WeatherResponse[i].Astronomy.Sunrise;
+        var Sunset = jsonObj.WeatherResponse[i].Astronomy.Sunset;
+        var Moonrise = jsonObj.WeatherResponse[i].Astronomy.Moonrise;
+        var Moonset = jsonObj.WeatherResponse[i].Astronomy.Moonset;
         $('#dailyForecast #Date').html(date);
         $('#dailyForecast #MaxTemp').html(tempMaxC+"&deg;C / "+tempMaxF+"&deg;F");
         $('#dailyForecast #MinTemp').html(tempMinC+"&deg;C / "+tempMinF+"&deg;F");
+        $('#dailyForecast #Sunrise').html(Sunrise);
+        $('#dailyForecast #Sunset').html(Sunset);
+        $('#dailyForecast #Moonrise').html(Moonrise);
+        $('#dailyForecast #Moonset').html(Moonset);
         $('#dailyForecastResults').append($('#dailyForecast').html());
         
     }
@@ -162,6 +170,15 @@ function hourlyForecast(jsonObj){
         var FeelsLikeC = jsonObj.WeatherResponse[0].HourlyResponse[i].FeelsLikeC;
         var FeelsLikeF = jsonObj.WeatherResponse[0].HourlyResponse[i].FeelsLikeF;
         var Time = jsonObj.WeatherResponse[0].HourlyResponse[i].Time;
+        if(Time.length == 3){
+            Time = "0"+Time;
+        }
+        else if(Time.length == 2){
+            Time = "00"+Time;
+        }
+        else if(Time.length == 1){
+            Time = "000"+Time;
+        }
         var ModTime = Time.slice(0,-2)+":"+Time.slice(-2);
         var Description = jsonObj.WeatherResponse[0].HourlyResponse[i].WeatherDesc;
         $('#hourlyForecast #Time').html(ModTime);
