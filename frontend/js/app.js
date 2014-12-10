@@ -79,13 +79,13 @@ function init() {
         currentCondition(jsonResponse);
     }
     table.rows[1].onclick = function(){
-        fiveDayForecast(jsonResponse);
-    }
-    table.rows[2].onclick = function(){
         hourlyForecast(jsonResponse);
     }
+    table.rows[2].onclick = function(){
+        fiveDayForecast(jsonResponse);   
+    }
     table.rows[3].onclick = function(){
-        monthlyAverages(jsonResponse);
+        monthlyAverages(jsonResponse, 0);
     }
 }
 google.maps.event.addDomListener(window, 'load', init);
